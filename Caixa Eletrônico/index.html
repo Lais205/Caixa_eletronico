@@ -1,0 +1,137 @@
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+
+    <title> Caixa Eletrônico </title>
+	<script>
+
+		let userNome = prompt('Me diga seu nome!')
+			alert(`Olá, ${userNome} é um prazer ter você aqui!`)
+				var saldo = 100.5; //Float
+				var senha_informada = false;
+
+				function acesso(){
+					if(senha_informada){
+					return true;
+				}else {
+					var senhaUser = prompt('Insira sua senha')
+					if(senhaUser == 3589)
+					return true;
+					else {
+						alert('Senha incorreta')
+						acesso();
+					}
+				}
+			}
+		function inicio() {
+
+			var escolha = parseInt(prompt('Selecione uma opção 1.) Saldo 2.) Extrato 3.) Saque 4.) Depósito 5.) Transferência 6.) Sair.'));
+
+			switch (escolha) {
+				case 1:
+					ver_saldo();
+					break;
+				case 2:
+					extrato();
+					break;
+				case 3:
+					fazer_saque();
+					break;
+				case 4:
+					fazer_deposito();
+					break;
+				case 5:
+					fazer_transferencia();
+					break;
+					case 6:
+						sair();
+						break;
+				default:
+					alert(`Escolha incorreta`)
+					inicio();
+			}
+		}		
+
+		function ver_saldo() {
+			if(acesso()) {
+			alert('Seu saldo atual é: ' + saldo);
+			inicio();
+			}
+		}
+
+
+		function extrato(){
+				alert('Extrato Bancário.\nLoja da Lara: Bandeja de ovos de codorna: R$ 24,00.\nMercadinho Simbão: Cebola Roxa - 5,40kg: R$ 10.,56\nMercadinho da Paula: Margarina Delícia - 3Un: R$ 20,99')
+				inicio();
+		}
+
+
+		function fazer_saque() {
+			var saque = parseFloat(prompt('Qual o valor para saque?'));
+			if (isNaN(saque) || saque === '') {
+				alert('Por favor, informe um número:');
+				fazer_saque();
+			}	else if (saque<=0){
+					alert('Operação não autorizada')
+					fazer_saque();
+			} else if (saque>saldo) {
+				alert('Operação não autorizada')
+				fazer_saque();
+			}
+			else {
+				saldo -= saque;
+				
+				ver_saldo();
+			}
+		}
+
+		function fazer_deposito() {
+			var deposito = parseFloat(prompt('Qual o valor para depósito?'));
+			// Not a Number
+			if (isNaN(deposito) || deposito === '') {
+				alert('Informe um número:');
+				fazer_deposito();
+			} else {
+				saldo += deposito;
+				ver_saldo();
+			}
+		}
+
+
+		function fazer_transferencia() {
+			var transf = parseFloat(prompt('Qual o valor da transferência?'));
+			if(transf <= 0){
+				alert('Operação não autorizada. O valor da tranferência deve ser maior que zero')
+				fazer_transferencia()
+			} else if (transf > saldo){
+				alert('Operação não autorizada. O valor da tranferência não pode ser maior que o saldo')
+				fazer_transferencia()
+			} else if ((isNaN(transf)) || transf === '') {
+					alert('Por favor, informe um número:');
+					fazer_transferencia();
+			} else {
+				saldo -= transf
+				ver_saldo();
+			}
+
+		}
+	
+
+		function sair() {
+			var confirma = confirm('Você deseja sair?');
+			if (confirma) {
+				window.close();
+			} else {
+				inicio();
+			}
+		}
+	
+
+		function erro() {
+			alert('Informe um número entre 1 e 6');
+			inicio();
+		}
+		inicio();
+	</script>
+    </head>
+    </html>
